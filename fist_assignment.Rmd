@@ -9,22 +9,31 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# R Markdown and Leaflet
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Introduction
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Leaflet is one of the most popular Javascript libraries for creating interactive maps. The leaflet R package allows you to create your own leaflet maps without needing to know any Javascript!
 
-```{r cars}
-summary(cars)
+
+## My First Map
+
+Getting started with leaflet is easy. The leaflet() function creates a map widget that you can store in a variable so that you can modify the map later on. You can add features to the map using the pipe operator (%>%) just like in dplyr. The addTiles() function adds mapping data from Open Street Map.
+
+```{r , echo=FALSE}
+library(leaflet)
+my_map <- leaflet() %>% 
+    addTiles()
+my_map
 ```
 
-## Including Plots
+## Adding Markers
 
-You can also embed plots, for example:
+You can add markers to your map one at a time using the addMarkers() function by specifying the longitude and latitude. (Here’s a tip if you tend to mix them up.) You can specify popup text for when you click on the marker with the popup argument.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+my_map <- my_map %>% 
+    addMarkers(lat = 53.5511, lng = 9.9937,
+               popup = "My Home Town Hamburg")
+my_map
+``` 
